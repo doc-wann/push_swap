@@ -1,0 +1,20 @@
+DEVLOG - REMOTE CODING FROM 14/05 to ??/??
+
+14/05, 23:40 - 
+Os movimentos de PB e PA ""não estão funcionando"". Coloco entre áspas já que o código dentro delas está funcional e faz exatamente aquilo que se propõe a fazer, mas seu uso dentro do tester o faz quebrar.
+A única identificação de qual stack é o que é a certeza de que seus ponteiros estão sendo "vistos" pelo código;
+Isso significa que, quando a função transforma os valores dos nodes, os ponteiros acabam se embaralhando, quebrando a lógica do código.
+
+Uma ideia para corrigir isso seria mover o (t_node a) até a última posição da nossa lista, usando ->next until null.
+Isso corrigiria o problema APENAS em situações onde a lista tenha mais de um elemento! Por conta disso, essa solução é inviável como padrão.
+
+Caso a lista tenha apenas um (ou nenhum) node, devemos atribuir o movimento com as condições devidas.
+
+E SE - A função fosse totalmente reformulada? Nós montamos um esquema de verificação de string e virtualmente 4 variantes da função P(A ou B). A entrada da função seria ambas as listas, e o retorno seria um t_node (ex: t_node *p_multi(t_node *a, t_node *b)). A grande questão é que a função precisaria ser inteligente o suficiente para identificar o que deve retornar e faze-lo de acordo.
+------ A elaboração de uma função assim seria dependente de uma quantidade fixa de reiterações, idealmente duas, controlada por um static int. A primeira iteração ideitifica e retorna o valor de A,  e a segunda retorna o valor de B.
+------ Caso o cenário não precise de um retorno elaborado de t_node, ele apenas devolve o valor de entrada!
+------ OBSERVAÇÂO - A função terá que fazer ambos os movimentos toda vez? Existe um jeito de armazenar um ponteiro com static t_node *? Se existir, isso vai ser uma puta mão na roda.
+
+OBSERVAÇÂO - em vez de void, os movimentos de transferência de valores poderiam ser estruturados com retorno  *t_node. Movimentos de PB retornam um ponteiro de B, e PA, um de A;
+------------ Com isso podemos evitar a iniciação da struct B desnecessariamente! Atualmente, o código inicia a struct B assim que entramos no ambiente de testes, com um node de rank 0, que não faz parte do todo montado.
+------------ Seguir com essa abordagem com certeza é mais efetivo do que manter as coisas como estão.
