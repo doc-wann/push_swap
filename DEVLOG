@@ -10,6 +10,7 @@ Isso corrigiria o problema APENAS em situações onde a lista tenha mais de um e
 
 Caso a lista tenha apenas um (ou nenhum) node, devemos atribuir o movimento com as condições devidas.
 
+
 E SE - A função fosse totalmente reformulada? Nós montamos um esquema de verificação de string e virtualmente 4 variantes da função P(A ou B). A entrada da função seria ambas as listas, e o retorno seria um t_node (ex: t_node *p_multi(t_node *a, t_node *b)). A grande questão é que a função precisaria ser inteligente o suficiente para identificar o que deve retornar e faze-lo de acordo.
 ------ A elaboração de uma função assim seria dependente de uma quantidade fixa de reiterações, idealmente duas, controlada por um static int. A primeira iteração ideitifica e retorna o valor de A,  e a segunda retorna o valor de B.
 ------ Caso o cenário não precise de um retorno elaborado de t_node, ele apenas devolve o valor de entrada!
