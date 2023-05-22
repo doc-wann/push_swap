@@ -1,7 +1,5 @@
 #include "push_swap.h"
 
-int nice_tester(t_node *stack);
-
 void rank_all(t_node *node, int ranking)
 {
 	t_node *torank;
@@ -29,9 +27,10 @@ t_node *start_node(char **array, t_control *cont)
 	new = malloc(sizeof(t_node));
 	if (!new)
 		exit(1);
+	new->number = ft_atoi(array[0]);
+	new->rank = 0;
 	new->next = NULL;
 	new->last = NULL;
-	new->stack = 'S';
 	return (new);
 }
 
@@ -70,7 +69,6 @@ t_node *add_next_node(t_node *first, char **argv, t_control *cont)
 	new->rank = 0;
 	new->next = NULL;
 	new->last = first;
-	new->stack = 'a';
 	return (new);
 }
 
@@ -83,7 +81,7 @@ int print_every_slot(t_node *first)
 	color = ft_strdup("\x1B[31m");
 	while (first->next != NULL)
 	{
-		printf("%sranking = %i | numero = %i | stack = %c\n", color, first->rank, first->number, first->stack);
+		ft_printf("%sranking = %i | numero = %i\n", color, first->rank, first->number);
 		first = first->next;
 		if (colorer == 0)
 			color = ft_strdup("\x1B[32m");
@@ -100,7 +98,7 @@ int print_every_slot(t_node *first)
 		}
 		colorer++;
 	}
-	printf("%sranking = %i | numero = %i | stack = %c\n", color, first->rank, first->number, first->stack);
+	ft_printf("%sranking = %i | numero = %i\n", color, first->rank, first->number);
 	return (0);
 }
 
@@ -164,46 +162,32 @@ int	list_ordinance_0_1(t_node *node, t_control *cont)
 		return (0);
 }
 
-// t_node	*simple_swap(t_node *node, t_control *cont)
-// {
-// 	t_node	*temp;
-
-// 	static int moves = 0;
-
-// 	temp = malloc(sizeof(t_node));
-// 	while (node->last != NULL)
-// 		node = node->last;
-// 	while (!is_sorted(node))
-// 	{
-// 		ft_printf("moves = %i\n", moves++);
-// 		if (list_ordinance_0_1(node, cont))
-// 		 	ra(node);
-// 		else
-// 		 	sa(node);
-// 		if (node->next != NULL)
-// 			node = node->next;
-// 		else
-// 			while (node->last != NULL)
-// 				node = node->last;
-// 	}
-// 	while (node->last != NULL)
-// 		node = node->last;
-// 	print_every_slot(node);
-// 	return(node);
-// }
-
-t_node *add_closing_node(t_node *first, char **argv, t_control *cont)
+t_node	*simple_swap(t_node *node, t_control *cont)
 {
-	t_node *new;
+	t_node	*temp;
 
-	new = malloc(sizeof(t_node));
-	if (!new)
-		exit(1);
-	first->next = new;
-	new->next = NULL;
-	new->last = first;
-	new->stack = 'E';
-	return (new);
+	static int moves = 0;
+
+	temp = malloc(sizeof(t_node));
+	while (node->last != NULL)
+		node = node->last;
+	while (!is_sorted(node))
+	{
+		ft_printf("moves = %i\n", moves++);
+		if (list_ordinance_0_1(node, cont))
+		 	ra(node);
+		else
+		 	sa(node);
+		if (node->next != NULL)
+			node = node->next;
+		else
+			while (node->last != NULL)
+				node = node->last;
+	}
+	while (node->last != NULL)
+		node = node->last;
+	print_every_slot(node);
+	return(node);
 }
 
 int main(int argc, char **argv)
@@ -212,13 +196,16 @@ int main(int argc, char **argv)
 	t_node	*second;
 	t_control	*cont;
 	char	**argv_backup;
+
 	cont = malloc(sizeof(t_control));
+
 	cont->size = argc - 1;
 	if (argc > 2)
 		argv++;
 	else
 		return (0);
 	first = start_node(argv, cont);
+	argv++;
 	second = add_next_node(first, argv, cont);
 	argv++;
 	while (argv[0] != NULL)
@@ -227,7 +214,7 @@ int main(int argc, char **argv)
 		argv++;
 	}
 	rank_loop(first, second, cont);
-	second = add_closing_node(second, argv, cont);
-	print_every_slot(first);
-	nice_tester(first);
+	tester(first, cont);
+	//simple_swap(first, cont);
+	//SIMPLE SWAP IS BRUTAL
 }

@@ -46,22 +46,5 @@ int both_stack_print(t_node *a, t_node *b)
 
 void	tester(t_node *a, t_control *cont)
 {
-	t_node	*temp;
-	t_node	*b;
-
-
-	b = malloc(sizeof(t_node));
-	while (a->last != NULL)
-		a = a->last;
-	// sa(a);
-	// both_stack_print(a, b);
-	// ra(a);
-	// both_stack_print(a, b);
-	// rra(a);
-	// both_stack_print(a, b);
-	// pa(a, b);
-	both_stack_print(a, b);
-	a = a->next;
-	pb(a, b);
-	both_stack_print(a, b);
+	print_every_slot(a);
 }
