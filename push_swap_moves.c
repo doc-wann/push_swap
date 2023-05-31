@@ -472,7 +472,6 @@ void p(t_node *node, char a)
 {
 	if (a == 'a')
 	{
-		printf("watermark\n");
 		while (node->stack != 'S')
     		node = node->next;
 		if (node->next->stack == 'E')
@@ -483,7 +482,6 @@ void p(t_node *node, char a)
 	}
 	else
 	{
-		printf("watermark2\n");
 		while (node->stack != 'E')
     		node = node->next;
 		if (node->next->stack == 'S')
@@ -493,6 +491,25 @@ void p(t_node *node, char a)
 		rr(node, 'a');
 	}
 }
+
+void ss(t_node *node)
+{
+	s(node, 'a');
+    s(node, 'b');
+}
+
+void r_r(t_node *node)
+{
+	r(node, 'a');
+    r(node, 'b');
+}
+
+void r_rr(t_node *node)
+{
+	rr(node, 'a');
+    rr(node, 'b');
+}
+
 // void rr(t_node *node, char a)
 // {
 // 	void	*marker;

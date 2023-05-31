@@ -33,7 +33,7 @@ int	ft_strlen2(const char *s)
 	return (c);
 }
 
-int	ft_count(int n)
+int	ft_count2(int n)
 {
 	int	len;
 
@@ -48,7 +48,7 @@ int	ft_count(int n)
 	return (len);
 }
 
-void	ft_alloc(size_t len, char *x, int n)
+void	ft_alloc2(size_t len, char *x, int n)
 {
 	x[len] = '\0';
 	if (n < 0)
@@ -76,10 +76,10 @@ char	*ft_itoa2(int n)
 		x = ft_strdup2("-2147483648");
 		return (x);
 	}
-	len = ft_count(n);
+	len = ft_count2(n);
 	x = malloc(sizeof(char) * len + 1);
 	if (!x)
 		return (NULL);
-	ft_alloc(len, x, n);
+	ft_alloc2(len, x, n);
 	return (x);
 }

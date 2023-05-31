@@ -22,10 +22,16 @@ typedef struct s_node
 } t_node;
 
 
+int sort(t_node *stack);
+
 // PUSH_SWAP_MOVES.C
-void	ra(t_node *node);
-void	rra(t_node *node);
-void	sa(t_node *node);
+void s(t_node *node, char a);
+void r(t_node *node, char a);
+void rr(t_node *node, char a);
+void p(t_node *node, char a);
+void ss(t_node *node);
+void r_r(t_node *node);
+void r_rr(t_node *node);
 
 void	tester(t_node *a, t_control *cont);
 

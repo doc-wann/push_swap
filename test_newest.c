@@ -35,22 +35,23 @@ void cycle_list(t_node *a)
 int nice_tester(t_node *stack)
 {
     cycle_list(stack);
-    ft_printf("#### LIST CYCLED ####\n");
-    print_whole_cycle(stack);
-    s(stack, 'a');
-    s(stack, 'b');
-    ft_printf("#### SA DONE ####\n");
-    print_whole_cycle(stack);
-    r(stack, 'a');
-    r(stack, 'b');
-    ft_printf("#### RA DONE ####\n");
-    print_whole_cycle(stack);
-    rr(stack, 'a');
-    rr(stack, 'b');
-    ft_printf("#### RRA DONE ####\n");
-    print_whole_cycle(stack);
-    p(stack, 'a');
-    p(stack, 'b');
-    ft_printf("#### PA DONE ####\n");
+    sort(stack);
+    // ft_printf("#### LIST CYCLED ####\n");
+    // print_whole_cycle(stack);
+    // s(stack, 'a');
+    // s(stack, 'b');
+    // ft_printf("#### SA DONE ####\n");
+    // print_whole_cycle(stack);
+    // r(stack, 'a');
+    // r(stack, 'b');
+    // ft_printf("#### RA DONE ####\n");
+    // print_whole_cycle(stack);
+    // rr(stack, 'a');
+    // rr(stack, 'b');
+    // ft_printf("#### RRA DONE ####\n");
+    // print_whole_cycle(stack);
+    // p(stack, 'a');
+    // p(stack, 'b');
+    // ft_printf("#### PA DONE ####\n");
     print_whole_cycle(stack);
 }

@@ -120,30 +120,30 @@ void rank_loop(t_node *first, t_node *second, t_control *cont)
 	rank_all(first, ranking);
 }
 
-int is_sorted(t_node *node)
-{
-	int i;
-	int i2;
+// int is_sorted(t_node *node)
+// {
+// 	int i;
+// 	int i2;
 
-	i = 0;
-	i2 = 0;
-	while (node->last != NULL)
-		node = node->last;
-	// ft_printf("+++++++++++ SORT STATE +++++++++++\n");
-	// print_every_slot(node);
-	while(node->next != NULL)
-	{
-		if (node->rank <= node->next->rank)
-			i2++;
-		node = node->next;
-		i++;
-	}
-	// printf("sequencia = %i | total = %i\n", i2, i);
-	if (i2 == i)
-		return (1);
-	else
-		return (0);
-}
+// 	i = 0;
+// 	i2 = 0;
+// 	while (node->last != NULL)
+// 		node = node->last;
+// 	// ft_printf("+++++++++++ SORT STATE +++++++++++\n");
+// 	// print_every_slot(node);
+// 	while(node->next != NULL)
+// 	{
+// 		if (node->rank <= node->next->rank)
+// 			i2++;
+// 		node = node->next;
+// 		i++;
+// 	}
+// 	// printf("sequencia = %i | total = %i\n", i2, i);
+// 	if (i2 == i)
+// 		return (1);
+// 	else
+// 		return (0);
+// }
 
 
 
