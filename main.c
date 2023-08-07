@@ -1,233 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdaniele <hdaniele@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 15:48:45 by hdaniele          #+#    #+#             */
+/*   Updated: 2023/06/29 18:50:09 by hdaniele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-int nice_tester(t_node *stack);
-
-void rank_all(t_node *node, int ranking)
+void	ft_free(t_node *list)
 {
-	t_node *torank;
-	int	ret = -2147483647;
-
-	ret = -2147483647;
-	torank = malloc(sizeof(t_node));
-
-	while (node != NULL)
+	if (list)
 	{
-		if (node->number >= ret && node->rank == 0)
-		{
-			ret = node->number;
-			torank = node;
-		}
-		node = node->next;
+		ft_free(list->next);
+		free(list);
 	}
-	torank->rank = ranking;
 }
 
-t_node *start_node(char **array, t_control *cont)
+void	checkers(char **argv)
 {
-	t_node *new;
-
-	new = malloc(sizeof(t_node));
-	if (!new)
-		exit(1);
-	new->next = NULL;
-	new->last = NULL;
-	new->stack = 'S';
-	return (new);
-}
-
-char	**remove_lower(char **argv, t_control *cont)
-{
-	int i;
-	int i2;
+	int	i;
 
 	i = 0;
-	i2 = cont->remove;
-	if (cont->size == cont->remove)
-		return (NULL);
-	while (i != cont->remove)
-		i++;
-	i++;
 	while (argv[i])
 	{
-		argv[i2] = argv[i];
+		if (check_n(argv[i]) == 0)
+			exit(0);
+		if (check_max_min(argv[i]) == 0)
+			exit(0);
 		i++;
-		i2++;
 	}
-	argv[i - 1] = NULL;
-	cont->size -= 1;
-	return(argv);
 }
 
-t_node *add_next_node(t_node *first, char **argv, t_control *cont)
+size_t	push_strlen(t_node *p)
 {
-	t_node *new;
+	int	i;
 
-	new = malloc(sizeof(t_node));
-	if (!new)
-		exit(1);
-	first->next = new;
-	new->number = ft_atoi(argv[0]);
-	new->rank = 0;
-	new->next = NULL;
-	new->last = first;
-	new->stack = 'a';
-	return (new);
-}
-
-int print_every_slot(t_node *first)
-{
-	char *color;
-	int colorer;
-
-	colorer = 0;
-	color = ft_strdup("\x1B[31m");
-	while (first->next != NULL)
+	i = 0;
+	while (p != NULL)
 	{
-		printf("%sranking = %i | numero = %i | stack = %c\n", color, first->rank, first->number, first->stack);
-		first = first->next;
-		if (colorer == 0)
-			color = ft_strdup("\x1B[32m");
-		if (colorer == 1)
-			color = ft_strdup("\x1B[33m");
-		if (colorer == 2)
-			color = ft_strdup("\x1B[34m");
-		if (colorer == 3)
-			color = ft_strdup("\x1B[35m");
-		if (colorer == 4)
-		{
-			colorer = -1;
-			color = ft_strdup("\x1B[31m");
-		}
-		colorer++;
+		i++;
+		p = p->next;
 	}
-	printf("%sranking = %i | numero = %i | stack = %c\n", color, first->rank, first->number, first->stack);
-	return (0);
+	return (i);
 }
 
-void rank_loop(t_node *first, t_node *second, t_control *cont)
+void	execution(t_node **stack_a, t_node **stack_b, int argc)
 {
-	int	ranking;
-
-	ranking = cont->size;
-	while(second->last != NULL)
-		second = second->last;
-	while(second->next != NULL)
-	{
-		rank_all(first, ranking);
-		second = second->next;
-		ranking--;
-	}
-	rank_all(first, ranking);
-}
-
-// int is_sorted(t_node *node)
-// {
-// 	int i;
-// 	int i2;
-
-// 	i = 0;
-// 	i2 = 0;
-// 	while (node->last != NULL)
-// 		node = node->last;
-// 	// ft_printf("+++++++++++ SORT STATE +++++++++++\n");
-// 	// print_every_slot(node);
-// 	while(node->next != NULL)
-// 	{
-// 		if (node->rank <= node->next->rank)
-// 			i2++;
-// 		node = node->next;
-// 		i++;
-// 	}
-// 	// printf("sequencia = %i | total = %i\n", i2, i);
-// 	if (i2 == i)
-// 		return (1);
-// 	else
-// 		return (0);
-// }
-
-
-
-
-int	list_ordinance_0_1(t_node *node, t_control *cont)
-{
-	t_node	*temp;
-
-	temp = malloc(sizeof(t_node));
-	temp = node;
-	while (temp->last != NULL)
-		temp = temp->last;
-	if (temp->rank < temp->next->rank)
-		return (1);
-	else if (temp->rank == cont->size && temp->next->rank == 1)
-		return (1);
+	if (push_strlen(*stack_a) <= 3 && push_strlen(*stack_a) > 1)
+		order_three(stack_a);
+	else if (push_strlen(*stack_a) == 4)
+		order_four(stack_a, stack_b);
+	else if (push_strlen(*stack_a) == 5)
+		order_five(stack_a, stack_b);
 	else
-		return (0);
+		radix(stack_a, stack_b, argc - 1);
 }
 
-// t_node	*simple_swap(t_node *node, t_control *cont)
-// {
-// 	t_node	*temp;
-
-// 	static int moves = 0;
-
-// 	temp = malloc(sizeof(t_node));
-// 	while (node->last != NULL)
-// 		node = node->last;
-// 	while (!is_sorted(node))
-// 	{
-// 		ft_printf("moves = %i\n", moves++);
-// 		if (list_ordinance_0_1(node, cont))
-// 		 	ra(node);
-// 		else
-// 		 	sa(node);
-// 		if (node->next != NULL)
-// 			node = node->next;
-// 		else
-// 			while (node->last != NULL)
-// 				node = node->last;
-// 	}
-// 	while (node->last != NULL)
-// 		node = node->last;
-// 	print_every_slot(node);
-// 	return(node);
-// }
-
-t_node *add_closing_node(t_node *first, char **argv, t_control *cont)
+int	main(int argc, char **argv)
 {
-	t_node *new;
+	t_node	*stacka;
+	t_node	*stackb;
+	int		i;
 
-	new = malloc(sizeof(t_node));
-	if (!new)
-		exit(1);
-	first->next = new;
-	new->next = NULL;
-	new->last = first;
-	new->stack = 'E';
-	return (new);
-}
-
-int main(int argc, char **argv)
-{
-	t_node	*first;
-	t_node	*second;
-	t_control	*cont;
-	char	**argv_backup;
-	cont = malloc(sizeof(t_control));
-	cont->size = argc - 1;
-	if (argc > 2)
-		argv++;
-	else
-		return (0);
-	first = start_node(argv, cont);
-	second = add_next_node(first, argv, cont);
+	i = 0;
 	argv++;
-	while (argv[0] != NULL)
+	stacka = NULL;
+	stackb = NULL;
+	if (argc < 2)
+		return (0);
+	checkers(argv);
+	while (argv[i])
 	{
-		second = add_next_node(second, argv, cont);
-		argv++;
+		put_last(&stacka, create_list(argv[i]));
+		i++;
 	}
-	rank_loop(first, second, cont);
-	second = add_closing_node(second, argv, cont);
-	print_every_slot(first);
-	nice_tester(first);
+	if (check_error(&stacka) == 0)
+	{
+		ft_free(stacka);
+		return (0);
+	}
+	execution(&stacka, &stackb, argc);
+	ft_free(stacka);
+	ft_free(stackb);
+	return (0);
 }

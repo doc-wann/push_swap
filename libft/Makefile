@@ -5,7 +5,8 @@ CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
 RM = rm -f
 
-FILES = ft_isalnum \
+FILES = ft_atoi_push \
+	ft_isalnum \
 	ft_bzero \
 	ft_atoi \
 	ft_isalpha \
